@@ -60,24 +60,67 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
+  let playerSelection;
+  let computerSelection;
+  let result;
+  let playerOne = document.querySelector("#p1Score");
+  let playerTwo = document.querySelector("#p2Score");
+  let winner = document.querySelector("#winner");
+  document.querySelectorAll("a").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      playerSelection = e.target.parentElement.id;
+      result = playRound(playerSelection, computerPlay());
+      innerGame();
+    });
+  });
   let i = 0;
   let pScore = 0;
   let cScore = 0;
-  while (i < 5) {
-    const playerSelection = prompt("Please choose your weapon: ");
-    const computerSelection = computerPlay();
-    let result = playRound(playerSelection, computerSelection);
+
+  function innerGame() {
+    // while (pla < 5) {
+    // const playerSelection = prompt("Please choose your weapon: ");
+    // const computerSelection = computerPlay();
+    // let result = playRound(playerSelection, computerSelection);
+
     if (result.player === 1) {
       pScore++;
+      playerOne.innerText = pScore;
     }
 
     if (result.computer === 1) {
       cScore++;
+      playerTwo.innerText = cScore;
+    }
+
+    if (pScore == 5) {
+      winner.innerText = "Player One Wins!!";
+      setTimeout(newGame, 1000);
+    }
+
+    if (cScore == 5) {
+      winner.innerText = "Computer Wins!!";
+      setTimeout(newGame, 1000);
     }
     console.log(`${result.result}
     Player Score: ${pScore}
     Computer Score: ${cScore}`);
-    i++;
+    //   i++;
+    // }
+  }
+
+  function newGame() {
+    let newGameString;
+
+    newGameString = prompt("Play Again?");
+    if (newGameString == "y") {
+      pScore = 0;
+      cScore = 0;
+
+      playerOne.innerText = 0;
+      playerTwo.innerText = 0;
+      winner.innerText = "";
+    }
   }
 }
 
