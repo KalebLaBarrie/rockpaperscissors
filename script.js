@@ -120,6 +120,8 @@ function game() {
       playerOne.innerText = 0;
       playerTwo.innerText = 0;
       winner.innerText = "";
+    } else {
+      newGame();
     }
   }
 }
